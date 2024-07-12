@@ -1,6 +1,7 @@
 package com.bhft.todo
 
 import com.bhft.todo.domain.controller.dto.TodoItem
+import com.bhft.todo.domain.data.TodoGenerator
 import io.ktor.client.call.*
 import io.ktor.http.*
 import kotlinx.coroutines.runBlocking
@@ -26,18 +27,19 @@ class PostTodoTest : BaseTest() {
     @Test
     @DisplayName("Should not create todo with same id")
     fun shouldNotCreateTodoWithSameId() {
-        todoController.createTodo(todoItem)
-        val createSameTodoResponse = todoController.createTodo(todoItem)
+        val firstTodo = TodoGenerator.createTodo()
+
+        val createSameTodoResponse = todoController.createTodo(firstTodo!!)
 
         val todoListResponse = todoController.getTodoList()
         val todoList = runBlocking { todoListResponse.body<List<TodoItem>>() }
 
         assertEquals(HttpStatusCode.BadRequest, createSameTodoResponse.status)
-        assertEquals(1, todoList.count { it.id == todoItem.id })
+        assertEquals(1, todoList.count { it.id == firstTodo.id })
     }
 
     @AfterTest
-    fun deleteCreatedItems() {
+    fun deleteManuallyCreatedItems() {
         todoControllerWithAuth.deleteTodo(todoItem.id)
     }
 }
