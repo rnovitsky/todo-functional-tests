@@ -1,11 +1,8 @@
 package com.bhft.todo
 
 
-import com.bhft.todo.domain.controller.dto.TodoItem
 import com.bhft.todo.domain.data.TodoGenerator
-import io.ktor.client.call.*
 import io.ktor.http.*
-import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.DisplayName
 import kotlin.test.*
 
@@ -18,8 +15,7 @@ class DeleteTodoTest : BaseTest() {
 
         val deleteTodoResponse = todoController.deleteTodo(todoForDelete!!.id)
 
-        val todoListResponse = todoController.getTodoList()
-        val todoList = runBlocking { todoListResponse.body<List<TodoItem>>() }
+        val todoList = todoController.getTodoList().body
 
         assertEquals(HttpStatusCode.Unauthorized, deleteTodoResponse.status)
         assertContains(todoList, todoForDelete)
@@ -32,8 +28,7 @@ class DeleteTodoTest : BaseTest() {
 
         val deleteTodoResponse = todoControllerWithAuth.deleteTodo(todoForDelete!!.id)
 
-        val todoListResponse = todoController.getTodoList()
-        val todoList = runBlocking { todoListResponse.body<List<TodoItem>>() }
+        val todoList = todoController.getTodoList().body
 
         assertEquals(HttpStatusCode.NoContent, deleteTodoResponse.status)
         assertFalse(todoList.map { it.id }.contains(todoForDelete.id))

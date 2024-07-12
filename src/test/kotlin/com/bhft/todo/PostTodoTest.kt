@@ -2,9 +2,7 @@ package com.bhft.todo
 
 import com.bhft.todo.domain.controller.dto.TodoItem
 import com.bhft.todo.domain.data.TodoGenerator
-import io.ktor.client.call.*
 import io.ktor.http.*
-import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.DisplayName
 import kotlin.test.*
 
@@ -17,8 +15,7 @@ class PostTodoTest : BaseTest() {
     fun shouldCreateNewTodo() {
         val createTodoResponse = todoController.createTodo(todoItem)
 
-        val todoListResponse = todoController.getTodoList()
-        val todoList = runBlocking { todoListResponse.body<List<TodoItem>>() }
+        val todoList = todoController.getTodoList().body
 
         assertEquals(HttpStatusCode.Created, createTodoResponse.status)
         assertContains(todoList, todoItem)
@@ -31,8 +28,7 @@ class PostTodoTest : BaseTest() {
 
         val createSameTodoResponse = todoController.createTodo(firstTodo!!)
 
-        val todoListResponse = todoController.getTodoList()
-        val todoList = runBlocking { todoListResponse.body<List<TodoItem>>() }
+        val todoList = todoController.getTodoList().body
 
         assertEquals(HttpStatusCode.BadRequest, createSameTodoResponse.status)
         assertEquals(1, todoList.count { it.id == firstTodo.id })
