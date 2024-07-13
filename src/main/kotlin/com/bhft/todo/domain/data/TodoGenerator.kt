@@ -51,5 +51,6 @@ object TodoGenerator : WithLogger {
 
     fun deleteAllGeneratedTodos() {
         generatedTodos.forEach { controller.deleteTodo(it.id) }
+        generatedTodos.clear()
     }
 }
