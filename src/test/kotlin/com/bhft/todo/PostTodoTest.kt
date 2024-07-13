@@ -42,7 +42,7 @@ class PostTodoTest : BaseTest() {
             val todoList = todoController.getTodoList().body
 
             assertThat(createSameTodoResponse.status).isEqualTo(HttpStatusCode.BadRequest)
-            assertThat(todoList).filteredOn { it.id == firstTodo.id}.hasSize(1)
+            assertThat(todoList).filteredOn { it.id == firstTodo.id }.hasSize(1)
         }
     }
 

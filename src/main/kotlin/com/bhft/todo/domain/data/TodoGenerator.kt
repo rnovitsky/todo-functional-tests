@@ -8,9 +8,10 @@ import io.ktor.client.plugins.logging.*
 import io.ktor.http.*
 
 object TodoGenerator : WithLogger {
-    private val controller = TodoController(
-        todoClientWithAuth.config { Logging { level = LogLevel.NONE } }
-    )
+    private val controller =
+        TodoController(
+            todoClientWithAuth.config { Logging { level = LogLevel.NONE } }
+        )
 
     private val availableIds = (0..1000000).iterator()
     private val generatedTodos = mutableSetOf<TodoItem>()
@@ -37,7 +38,6 @@ object TodoGenerator : WithLogger {
             }
         }
     }
-
 
     fun createTodos(count: Int): MutableList<TodoItem> {
         val createdItems = mutableListOf<TodoItem>()

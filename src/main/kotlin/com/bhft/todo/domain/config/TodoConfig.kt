@@ -1,8 +1,8 @@
 package com.bhft.todo.domain.config
 
+import com.bhft.todo.domain.config.dto.Config
 import com.sksamuel.hoplite.ConfigLoaderBuilder
 import com.sksamuel.hoplite.addResourceSource
-import com.bhft.todo.domain.config.dto.Config
 
 val todoConfig =
     ConfigLoaderBuilder.default()

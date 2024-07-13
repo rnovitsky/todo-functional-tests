@@ -10,7 +10,7 @@ import kotlinx.coroutines.runBlocking
 class TodoController(private val todoClient: HttpClient) {
     fun getTodoList(offset: Int? = null, limit: Int? = null): HttpResponseWrapper<List<TodoItem>> =
         runBlocking {
-            todoClient.get(todosEndpoint) {
+            todoClient.get(TODOS_ENDPOINT) {
                 parameter("offset", offset)
                 parameter("limit", limit)
             }.wrap<List<TodoItem>>()
@@ -18,15 +18,15 @@ class TodoController(private val todoClient: HttpClient) {
 
     fun createTodo(todo: TodoItem) =
         runBlocking {
-            todoClient.post(todosEndpoint) {
+            todoClient.post(TODOS_ENDPOINT) {
                 setBody(todo)
             }
         }
 
     fun deleteTodo(todoId: Long) =
         runBlocking {
-            todoClient.delete("$todosEndpoint/$todoId")
+            todoClient.delete("$TODOS_ENDPOINT/$todoId")
         }
 }
 
-private const val todosEndpoint = "/todos"
+private const val TODOS_ENDPOINT = "/todos"

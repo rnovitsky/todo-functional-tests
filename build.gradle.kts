@@ -1,7 +1,10 @@
+import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
+
 plugins {
     kotlin("jvm") version "1.9.23"
     kotlin("plugin.serialization") version "1.9.23"
     id("io.qameta.allure") version "2.11.2"
+    id("org.jlleitschuh.gradle.ktlint") version "12.1.1"
 }
 
 group = "com.bhft"
@@ -30,7 +33,11 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.25.3")
 }
 
-tasks{
+tasks {
+    compileKotlin {
+        dependsOn(ktlintCheck)
+    }
+
     test {
         useJUnitPlatform()
         testLogging {
@@ -42,4 +49,13 @@ tasks{
 
 kotlin {
     jvmToolchain(17)
+}
+
+ktlint {
+    version.set("1.0.1")
+    verbose.set(true)
+    outputToConsole.set(true)
+    reporters {
+        reporter(ReporterType.HTML)
+    }
 }
