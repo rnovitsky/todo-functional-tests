@@ -3,8 +3,10 @@ package com.bhft.todo
 import com.bhft.todo.domain.controller.dto.TodoItem
 import com.bhft.todo.domain.data.TodoGenerator
 import io.ktor.http.*
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.DisplayName
-import kotlin.test.*
+import org.junit.jupiter.api.Test
 
 @DisplayName("POST /todos")
 class PostTodoTest : BaseTest() {
@@ -17,8 +19,8 @@ class PostTodoTest : BaseTest() {
 
         val todoList = todoController.getTodoList().body
 
-        assertEquals(HttpStatusCode.Created, createTodoResponse.status)
-        assertContains(todoList, todoItem)
+        assertThat(createTodoResponse.status).isEqualTo(HttpStatusCode.Created)
+        assertThat(todoList).contains(todoItem)
     }
 
     @Test
@@ -30,11 +32,11 @@ class PostTodoTest : BaseTest() {
 
         val todoList = todoController.getTodoList().body
 
-        assertEquals(HttpStatusCode.BadRequest, createSameTodoResponse.status)
-        assertEquals(1, todoList.count { it.id == firstTodo.id })
+        assertThat(createSameTodoResponse.status).isEqualTo(HttpStatusCode.BadRequest)
+        assertThat(todoList).filteredOn { it.id == firstTodo.id}.hasSize(1)
     }
 
-    @AfterTest
+    @AfterEach
     fun deleteManuallyCreatedItems() {
         todoControllerWithAuth.deleteTodo(todoItem.id)
     }

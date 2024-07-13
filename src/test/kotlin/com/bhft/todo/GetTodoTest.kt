@@ -2,10 +2,9 @@ package com.bhft.todo
 
 import com.bhft.todo.domain.data.TodoGenerator
 import io.ktor.http.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
-import kotlin.test.Test
-import kotlin.test.assertContentEquals
-import kotlin.test.assertEquals
+import org.junit.jupiter.api.Test
 
 @DisplayName("GET /todos")
 class GetTodoTest : BaseTest() {
@@ -16,7 +15,7 @@ class GetTodoTest : BaseTest() {
 
         val todoListResponse = todoController.getTodoList()
 
-        assertEquals(HttpStatusCode.OK, todoListResponse.status)
-        assertContentEquals(generatedTodos, todoListResponse.body)
+        assertThat(todoListResponse.status).isEqualTo(HttpStatusCode.OK)
+        assertThat(todoListResponse.body).isEqualTo(generatedTodos)
     }
 }

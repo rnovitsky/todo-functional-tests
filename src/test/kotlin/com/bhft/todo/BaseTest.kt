@@ -5,13 +5,13 @@ import com.bhft.todo.domain.client.todoClient
 import com.bhft.todo.domain.client.todoClientWithAuth
 import com.bhft.todo.domain.controller.TodoController
 import com.bhft.todo.domain.data.TodoGenerator
-import kotlin.test.AfterTest
+import org.junit.jupiter.api.AfterEach
 
 open class BaseTest : WithLogger {
     protected val todoController = TodoController(todoClient)
     protected val todoControllerWithAuth = TodoController(todoClientWithAuth)
 
-    @AfterTest
+    @AfterEach
     fun deleteCreatedItems() {
         TodoGenerator.deleteAllGeneratedTodos()
     }

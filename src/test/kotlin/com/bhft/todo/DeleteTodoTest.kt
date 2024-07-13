@@ -3,8 +3,9 @@ package com.bhft.todo
 
 import com.bhft.todo.domain.data.TodoGenerator
 import io.ktor.http.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
-import kotlin.test.*
+import org.junit.jupiter.api.Test
 
 @DisplayName("DELETE /todos")
 class DeleteTodoTest : BaseTest() {
@@ -17,8 +18,8 @@ class DeleteTodoTest : BaseTest() {
 
         val todoList = todoController.getTodoList().body
 
-        assertEquals(HttpStatusCode.Unauthorized, deleteTodoResponse.status)
-        assertContains(todoList, todoForDelete)
+        assertThat(deleteTodoResponse.status).isEqualTo(HttpStatusCode.Unauthorized)
+        assertThat(todoList).contains(todoForDelete)
     }
 
     @Test
@@ -30,7 +31,7 @@ class DeleteTodoTest : BaseTest() {
 
         val todoList = todoController.getTodoList().body
 
-        assertEquals(HttpStatusCode.NoContent, deleteTodoResponse.status)
-        assertFalse(todoList.map { it.id }.contains(todoForDelete.id))
+        assertThat(deleteTodoResponse.status).isEqualTo(HttpStatusCode.NoContent)
+        assertThat(todoList).doesNotContain(todoForDelete)
     }
 }
