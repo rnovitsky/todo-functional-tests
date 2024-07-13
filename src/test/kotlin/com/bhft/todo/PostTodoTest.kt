@@ -26,7 +26,7 @@ class PostTodoTest : BaseTest() {
     fun shouldNotCreateTodoWithSameId() {
         val firstTodo = TodoGenerator.createTodo()
 
-        val createSameTodoResponse = todoController.createTodo(firstTodo!!)
+        val createSameTodoResponse = todoController.createTodo(firstTodo)
 
         val todoList = todoController.getTodoList().body
 

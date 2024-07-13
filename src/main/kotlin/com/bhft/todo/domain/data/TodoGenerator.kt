@@ -1,7 +1,6 @@
 package com.bhft.todo.domain.data
 
 import com.bhft.todo.core.logger.WithLogger
-import com.bhft.todo.core.utils.RandomUtils.getRandomInt
 import com.bhft.todo.domain.client.todoClientWithAuth
 import com.bhft.todo.domain.controller.TodoController
 import com.bhft.todo.domain.controller.dto.TodoItem
@@ -13,10 +12,11 @@ object TodoGenerator : WithLogger {
         todoClientWithAuth.config { Logging { level = LogLevel.NONE } }
     )
 
+    private val availableIds = (0..1000000).iterator()
     private val generatedTodos = mutableSetOf<TodoItem>()
 
     private fun generateTodo(): TodoItem =
-        getRandomInt(0, 1000000).run {
+        availableIds.nextInt().run {
             TodoItem(
                 id = this.toLong(),
                 text = "Generated TODO item, id: $this",

@@ -13,7 +13,7 @@ class DeleteTodoTest : BaseTest() {
     fun shouldNotDeleteTodoIfNotAuthorized() {
         val todoForDelete = TodoGenerator.createTodo()
 
-        val deleteTodoResponse = todoController.deleteTodo(todoForDelete!!.id)
+        val deleteTodoResponse = todoController.deleteTodo(todoForDelete.id)
 
         val todoList = todoController.getTodoList().body
 
@@ -26,7 +26,7 @@ class DeleteTodoTest : BaseTest() {
     fun shouldDeleteTodoIfAuthorized() {
         val todoForDelete = TodoGenerator.createTodo()
 
-        val deleteTodoResponse = todoControllerWithAuth.deleteTodo(todoForDelete!!.id)
+        val deleteTodoResponse = todoControllerWithAuth.deleteTodo(todoForDelete.id)
 
         val todoList = todoController.getTodoList().body
 
