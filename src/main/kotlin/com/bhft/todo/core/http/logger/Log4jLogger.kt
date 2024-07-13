@@ -37,7 +37,11 @@ class Log4jLogger : Logger {
                 .takeIf { it.isNotEmpty() }
                 ?.let { "HEADERS: $it " } ?: ""
 
-        val body = "\\{.*}".toRegex().find(message)?.value ?: "No body"
+        val body =
+            "BODY START\\s(.*)\\sBODY END".toRegex().find(message)
+                ?.groupValues?.elementAt(1)
+                ?.takeIf { it.isNotEmpty() }
+                ?: "No body"
 
         val response =
             lines.find { it.startsWith("RESPONSE: ") }?.let {
