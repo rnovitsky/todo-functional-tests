@@ -7,6 +7,12 @@ import io.ktor.client.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.http.*
 
+/**
+ * Helper class to manipulate test data.
+ * Contains a global state of all generated objects which allows to clean up test data easily.
+ *
+ * Note: current implementation is not thread-safe, should be redesigned for using in parallel tests.
+ */
 class TodoGenerator(client: HttpClient) : WithLogger {
     private val controller =
         TodoController(

@@ -8,6 +8,10 @@ import io.ktor.client.*
 import io.ktor.client.request.*
 import kotlinx.coroutines.runBlocking
 
+/**
+ * Controller to use API of the tested app.
+ * Dependency injection allows to have several controllers using different clients.
+ */
 class TodoController(private val todoClient: HttpClient) {
     fun getTodoList(offset: Int? = null, limit: Int? = null): HttpResponseWrapper<List<TodoItem>> =
         runBlocking {
@@ -24,6 +28,10 @@ class TodoController(private val todoClient: HttpClient) {
             }.wrap<String>()
         }
 
+    /**
+     * Separate method used only for negative tests
+     * (does not follow a contract provided by tested app).
+     */
     fun createTodoInvalidTypes(todo: TodoItemInvalidTypes) =
         runBlocking {
             todoClient.post(TODOS_ENDPOINT) {
@@ -38,6 +46,10 @@ class TodoController(private val todoClient: HttpClient) {
             }.wrap<String>()
         }
 
+    /**
+     * Separate method used only for negative tests
+     * (does not follow a contract provided by tested app).
+     */
     fun updateTodoInvalidTypes(idToUpdate: Long, todo: TodoItemInvalidTypes) =
         runBlocking {
             todoClient.put("$TODOS_ENDPOINT/$idToUpdate") {
