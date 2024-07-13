@@ -1,0 +1,6 @@
+service:
+  url: http://localhost:8080
+  credentials:
+    # should be stored in env variables, default values are for demo project
+    username: ${TODO_USERNAME:-admin}
+    password: ${TODO_PASSWORD:-admin}

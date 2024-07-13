@@ -1,10 +1,11 @@
 package com.bhft.todo.domain.client
 
 import com.bhft.todo.core.http.commonHttpClient
+import com.bhft.todo.domain.config.todoConfig
 import io.ktor.client.plugins.auth.*
 import io.ktor.client.plugins.auth.providers.*
 
-val todoClient = commonHttpClient("http://localhost:8080")
+val todoClient = commonHttpClient(todoConfig.service.url)
 
 val todoClientWithAuth =
     todoClient.config {
@@ -12,7 +13,9 @@ val todoClientWithAuth =
             basic {
                 sendWithoutRequest { true }
                 credentials {
-                    BasicAuthCredentials(username = "admin", password = "admin")
+                    with(todoConfig.service.credentials) {
+                        BasicAuthCredentials(username, password)
+                    }
                 }
             }
         }
