@@ -42,3 +42,5 @@ Testcontainers requires the image to be loaded to the local docker installation,
 
 ## Test reports
 Test execution reports can be found in `/build/reports/tests/test/index.html`.
+
+When running on CI test reports are published to [GitHub Pages](https://rnovitsky.github.io/todo-functional-tests).
