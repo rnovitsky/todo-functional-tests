@@ -13,16 +13,19 @@ object TodoGenerator : WithLogger {
             todoClientWithAuth.config { Logging { level = LogLevel.NONE } }
         )
 
-    private val availableIds = (0..1000000).iterator()
+    private val availableIds = (0..Long.MAX_VALUE).iterator()
     private val generatedTodos = mutableSetOf<TodoItem>()
 
-    private fun generateTodo(): TodoItem =
-        availableIds.nextInt().run {
+    fun generateTodo(): TodoItem =
+        availableIds.nextLong().run {
             TodoItem(
-                id = this.toLong(),
+                id = this,
                 text = "Generated TODO item, id: $this",
                 completed = true
-            ).also { logger.debug("Generated random TODO item with id $this") }
+            ).also {
+                generatedTodos.add(it)
+                logger.debug("Generated random TODO item with id $this")
+            }
         }
 
     fun createTodo(): TodoItem {
@@ -30,7 +33,6 @@ object TodoGenerator : WithLogger {
             val createResponse = controller.createTodo(this)
 
             if (createResponse.status == HttpStatusCode.Created) {
-                generatedTodos.add(this)
                 return this
             } else {
                 logger.error("Cannot create TODO item with id = ${this.id}")

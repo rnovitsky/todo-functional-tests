@@ -1,11 +1,11 @@
 package com.bhft.todo.data
 
-import com.bhft.todo.domain.controller.dto.TodoItem
 import com.bhft.todo.domain.controller.dto.TodoItemInvalidTypes
+import com.bhft.todo.domain.data.TodoGenerator
 
-val todoItem = TodoItem(id = 0, text = "created from autotest", completed = true)
+fun todoItem() = TodoGenerator.generateTodo()
 
-val todoItemInvalidTypes = TodoItemInvalidTypes(id = 0, text = "TODO with invalid types", completed = true)
+val todoItemInvalidTypes = TodoItemInvalidTypes(id = 1234567, text = "TODO with invalid types", completed = true)
 val todoItemNegativeId = todoItemInvalidTypes.copy(id = -1)
 val todoItemMissingId = todoItemInvalidTypes.copy(id = null)
 val todoItemMissingText = todoItemInvalidTypes.copy(text = null)

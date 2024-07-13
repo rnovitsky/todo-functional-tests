@@ -5,7 +5,6 @@ import com.bhft.todo.domain.data.TodoGenerator
 import io.ktor.http.*
 import jdk.jfr.Description
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
@@ -15,6 +14,8 @@ class PostTodoTest : BaseTest() {
     @DisplayName("Should create new todo item")
     @Description("POST should allow to create new item")
     fun shouldCreateNewTodo() {
+        val todoItem = todoItem()
+
         val createTodoResponse =
             step("Create new item") { todoController.createTodo(todoItem) }
 
@@ -107,12 +108,4 @@ class PostTodoTest : BaseTest() {
             assertThat(todoList).extracting("id").doesNotContain(todoItemMissingCompleted.id)
         }
     }
-
-    @AfterEach
-    fun deleteManuallyCreatedItems() {
-        todoControllerWithAuth.deleteTodo(todoItem.id)
-    }
 }
-
-private const val INVALID_VALUE_ERROR = "invalid value:"
-private const val MISSING_FIELD_ERROR = "missing field `%s`"

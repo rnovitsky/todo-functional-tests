@@ -31,6 +31,20 @@ class TodoController(private val todoClient: HttpClient) {
             }.wrap<String>()
         }
 
+    fun updateTodo(idToUpdate: Long, todo: TodoItem) =
+        runBlocking {
+            todoClient.put("$TODOS_ENDPOINT/$idToUpdate") {
+                setBody(todo)
+            }.wrap<String>()
+        }
+
+    fun updateTodoInvalidTypes(idToUpdate: Long, todo: TodoItemInvalidTypes) =
+        runBlocking {
+            todoClient.put("$TODOS_ENDPOINT/$idToUpdate") {
+                setBody(todo)
+            }.wrap<String>()
+        }
+
     fun deleteTodo(todoId: Long) =
         runBlocking {
             todoClient.delete("$TODOS_ENDPOINT/$todoId")
