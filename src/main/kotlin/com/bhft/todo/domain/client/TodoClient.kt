@@ -10,8 +10,8 @@ val todoClientWithAuth =
     todoClient.config {
         Auth {
             basic {
+                sendWithoutRequest { true }
                 credentials {
-                    sendWithoutRequest { true }
                     BasicAuthCredentials(username = "admin", password = "admin")
                 }
             }
