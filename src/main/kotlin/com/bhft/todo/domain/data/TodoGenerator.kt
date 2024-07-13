@@ -1,16 +1,16 @@
 package com.bhft.todo.domain.data
 
 import com.bhft.todo.core.logger.WithLogger
-import com.bhft.todo.domain.client.todoClientWithAuth
 import com.bhft.todo.domain.controller.TodoController
 import com.bhft.todo.domain.controller.dto.TodoItem
+import io.ktor.client.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.http.*
 
-object TodoGenerator : WithLogger {
+class TodoGenerator(client: HttpClient) : WithLogger {
     private val controller =
         TodoController(
-            todoClientWithAuth.config { Logging { level = LogLevel.NONE } }
+            client.config { Logging { level = LogLevel.NONE } }
         )
 
     private val availableIds = (0..Long.MAX_VALUE).iterator()

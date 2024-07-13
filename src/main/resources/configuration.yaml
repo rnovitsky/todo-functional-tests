@@ -1,5 +1,12 @@
+image:
+  name: todo-app:latest
+  port: 4242
+
+testcontainers:
+  enabled: ${USE_TESTCONTAINERS:-1}
+
 service:
-  url: http://localhost:8080
+  url: http://localhost:8080 # when Testcontainers are not used
   credentials:
     # should be stored in env variables, default values are for demo project
     username: ${TODO_USERNAME:-admin}

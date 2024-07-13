@@ -1,7 +1,6 @@
 package com.bhft.todo
 
 import com.bhft.todo.data.*
-import com.bhft.todo.domain.data.TodoGenerator
 import io.ktor.http.*
 import jdk.jfr.Description
 import org.assertj.core.api.Assertions.assertThat
@@ -32,7 +31,7 @@ class PostTodoTest : BaseTest() {
     @Description("POST should not create a new item if item with the same id exists")
     fun shouldNotCreateTodoWithSameId() {
         val firstTodo =
-            step("Create first item") { TodoGenerator.createTodo() }
+            step("Create first item") { todoGenerator.createTodo() }
 
         val createSameTodoResponse =
             step("Create second item with same id") { todoController.createTodo(firstTodo) }

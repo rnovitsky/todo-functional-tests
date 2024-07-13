@@ -2,7 +2,6 @@ package com.bhft.todo
 
 import com.bhft.todo.data.*
 import com.bhft.todo.domain.controller.dto.TodoItem
-import com.bhft.todo.domain.data.TodoGenerator
 import io.ktor.http.*
 import jdk.jfr.Description
 import org.assertj.core.api.Assertions.*
@@ -18,7 +17,7 @@ class PutTodoTest : BaseTest() {
     @BeforeEach
     fun createTodoItem() {
         existingTodo =
-            step("Create new item") { TodoGenerator.createTodo() }
+            step("Create new item") { todoGenerator.createTodo() }
     }
 
     @Test
@@ -46,7 +45,7 @@ class PutTodoTest : BaseTest() {
     @Description("PUT should not update existing item if id from the payload already exists in TODO list")
     fun shouldNotUpdateExistingTodoExistingId() {
         val secondTodo =
-            step("Create second item") { TodoGenerator.createTodo() }
+            step("Create second item") { todoGenerator.createTodo() }
 
         val updateTodoResponse =
             step("Update second item with the first item") { todoController.updateTodo(secondTodo.id, existingTodo) }

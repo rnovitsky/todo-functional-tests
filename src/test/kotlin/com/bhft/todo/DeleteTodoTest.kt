@@ -1,7 +1,6 @@
 package com.bhft.todo
 
 import com.bhft.todo.domain.controller.dto.TodoItem
-import com.bhft.todo.domain.data.TodoGenerator
 import io.ktor.http.*
 import io.qameta.allure.Description
 import org.assertj.core.api.Assertions.assertThat
@@ -16,7 +15,7 @@ class DeleteTodoTest : BaseTest() {
     @BeforeEach
     fun generateTodoForDelete() {
         todoForDelete =
-            step("Generate new item") { TodoGenerator.createTodo() }
+            step("Generate new item") { todoGenerator.createTodo() }
     }
 
     @Test

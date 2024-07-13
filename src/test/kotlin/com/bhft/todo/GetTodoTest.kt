@@ -1,7 +1,6 @@
 package com.bhft.todo
 
 import com.bhft.todo.domain.controller.dto.TodoItem
-import com.bhft.todo.domain.data.TodoGenerator
 import io.ktor.http.*
 import io.qameta.allure.Description
 import org.assertj.core.api.Assertions.assertThat
@@ -16,14 +15,14 @@ class GetTodoTest : BaseTest() {
     @BeforeEach
     fun generateTodos() {
         generatedTodos =
-            step("Generate 5 items") { TodoGenerator.createTodos(5) }
+            step("Generate 5 items") { todoGenerator.createTodos(5) }
     }
 
     @Test
     @DisplayName("Should return empty list")
     @Description("GET should return empty list if there are no items")
     fun shouldReturnEmptyList() {
-        TodoGenerator.deleteAllGeneratedTodos()
+        todoGenerator.deleteAllGeneratedTodos()
 
         val todoListResponse =
             step("Retrieve list of items (no items created)") { todoController.getTodoList() }
