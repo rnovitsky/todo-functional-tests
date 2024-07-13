@@ -3,6 +3,7 @@ package com.bhft.todo.domain.controller
 import com.bhft.todo.core.http.HttpResponseWrapper
 import com.bhft.todo.core.http.wrap
 import com.bhft.todo.domain.controller.dto.TodoItem
+import com.bhft.todo.domain.controller.dto.TodoItemInvalidTypes
 import io.ktor.client.*
 import io.ktor.client.request.*
 import kotlinx.coroutines.runBlocking
@@ -20,7 +21,14 @@ class TodoController(private val todoClient: HttpClient) {
         runBlocking {
             todoClient.post(TODOS_ENDPOINT) {
                 setBody(todo)
-            }
+            }.wrap<String>()
+        }
+
+    fun createTodoInvalidTypes(todo: TodoItemInvalidTypes) =
+        runBlocking {
+            todoClient.post(TODOS_ENDPOINT) {
+                setBody(todo)
+            }.wrap<String>()
         }
 
     fun deleteTodo(todoId: Long) =

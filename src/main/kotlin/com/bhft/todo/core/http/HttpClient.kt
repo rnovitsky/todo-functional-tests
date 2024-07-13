@@ -8,7 +8,10 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.json.Json
 
+@OptIn(ExperimentalSerializationApi::class)
 fun commonHttpClient(baseUrl: String) =
     HttpClient(CIO) {
         install(Logging) {
@@ -17,7 +20,9 @@ fun commonHttpClient(baseUrl: String) =
         }
 
         install(ContentNegotiation) {
-            json()
+            json(
+                Json { explicitNulls = false }
+            )
         }
 
         defaultRequest {
