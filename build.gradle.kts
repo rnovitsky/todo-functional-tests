@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version "1.9.23"
     kotlin("plugin.serialization") version "1.9.23"
+    id("io.qameta.allure") version "2.11.2"
 }
 
 group = "com.bhft"
