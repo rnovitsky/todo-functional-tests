@@ -16,7 +16,7 @@ Before running tests the image should be loaded to Docker using the following co
 
 To start a container locally:
 
-`docker run -p 8080:4242`
+`docker run -d -p 8080:4242 --name todo-app todo-app:latest`
 
 Application will be available at http://localhost:8080
 

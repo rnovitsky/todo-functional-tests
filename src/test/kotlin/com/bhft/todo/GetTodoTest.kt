@@ -1,5 +1,6 @@
 package com.bhft.todo
 
+import com.bhft.todo.data.INVALID_QUERY_STRING_ERROR
 import com.bhft.todo.domain.controller.dto.TodoItem
 import io.ktor.http.*
 import io.qameta.allure.Description
@@ -146,5 +147,3 @@ class GetTodoTest : BaseTest() {
         }
     }
 }
-
-private const val INVALID_QUERY_STRING_ERROR = "Invalid query string"
